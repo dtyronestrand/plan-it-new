@@ -1,23 +1,35 @@
 <template>
-    <div v-if="props.open" class="z-40" @click="emit('close')"></div>
-        <div         :class="[
-            'fixed top-0 left-0 z-50 flex h-full max-h-dvh w-full transform flex-col bg-black shadow-2xl transition-transform duration-300 ease-in-out md:w-96',
-            open ? 'translate-x-0' : 'translate-x-full',
+    <div v-if="props.open">
+        <div class="fixed inset-0 bg-slate-700 opacity-50 z-40" @click="emit('close')"></div>
+        <div :class="[
+            'fixed top-0 left-0 z-50 flex h-full max-h-dvh transform p-4 flex-col bg-black shadow-2xl transition-transform duration-300 ease-in-out md:w-96',
+            props.open ? 'translate-x-0' : 'translate-x-full',
         ]">
-            <div class="lcars-row">
-                <div class="lcars-bracket top lcars-u-3 lcars-blue-color lcars-black-bg"></div>
-            </div>
-            <div class="lcars-row">
+           
+            <div class="lcars-row pt-8">
             
-            <div class="lcars-element button left-rounded lcars-dodger-blue-bg" @click="modifyYear(-1)"><div class="lcars-text-box full-centered lcars-dodger-blue-bg"><ArrowLeftCircle class="size-14 text-black"/></div></div>
-            <div class="lcars-element button lcars-blue-bg"><div class="lcars-text-box full-centered large lcars-blue-bg">{{selectedYear}}</div></div>
-              <div class="lcars-element button right-rounded lcars-dodger-blue-bg" @click="modifyYear(1)"><div class="lcars-text-box full-centered lcars-dodger-blue-bg"><ArrowRightCircle class="size-14 text-black"/></div></div>
+            <div class="lcars-text-box full-centered lcars-black-bg"><ArrowLeftCircle role="button" @click="modifyYear(-1)" class="size-12 text-white"/></div>
+            <div class="lcars-element button lcars-black-bg"><div class="lcars-text-box full-centered large">{{selectedYear}}</div></div>
+            <div class="lcars-text-box full-centered lcars-black-bg"><ArrowRightCircle role="button" @click="modifyYear(1)" class="size-12 text-white"/></div>
+              
             </div>
-            <div v-for="(month, index) in months" :key="month.id" :class="{'mt-5 : index !== 0'}" >{{ month.name }}</div>
-            <Dates :month="month.id"/>
+            <div class="overflow-y-auto calndar-container">
+            <div v-for="month in months" :key="month.id" class=" mt-5  text-black text-center font-bold">
+            <div class="lcars-row mb-4 ">
+            <span class="lcars-bar horizontal left-end decorated lcars-mariner-bg"></span>
+                <span class="lcars-bar horizontal lcars-mariner-bg">
+                <span class="lcars-title">
+                {{ month.name }}
+                </span>
+                </span>
+                <span class="lcars-bar horizontal right-end decorated lcars-mariner-bg"></span>
+            </div>
+                <Dates :month="month.id" @dateSelected="emit('close')"/>
+            </div>
+            </div>
         </div>
-   
-    </template>
+    </div>
+</template>
     <script setup lang="ts">
 
 import dayjs from "dayjs"
@@ -55,5 +67,10 @@ const months = [
 ];
 </script>
         <style scoped>
-
+.calndar-container {
+    scrollbar-width: none;
+}
+.calndar-container::-webkit-scrollbar {
+    display: none;
+}
         </style>

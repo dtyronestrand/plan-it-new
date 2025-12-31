@@ -49,6 +49,7 @@ export interface Task {
 	id: number
 	name: string
 	done: boolean
+	notes?: string | null
 	calendar_id: number
 	due_date: string | null
 	sub_tasks: Task[]

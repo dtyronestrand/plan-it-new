@@ -1,13 +1,13 @@
 <template>
-    <div class="bg-secondary w-full rounded-b-lg p-5">
+    <div class=" w-full rounded-b-lg p-5">
         <div class="grid grid-cols-7 place-items-center gap-x-2 gap-y-4">
             <div v-for="day in days" :key="day">
-                <span class="text-secondary-content">{{ day }}</span>
+                <span class="text-[#36c]">{{ day }}</span>
             </div>
             <div v-for="date in calendarDates" :key="date.key" class="flex h-8 w-8 items-center justify-center">
                 <button
                     class="flex h-9 w-9 items-center justify-center rounded-full text-sm font-semibold"
-                    :class="date.isCurrentMonth ? 'text-secondary-content' : 'text-secondary-content/50'"
+                    :class="date.isCurrentMonth ? 'text-[#36c]' : 'text-[rgb(from #36c R G B/0.5)]'"
                     @click="selectspecificDate(date.key)"
                 >
                     <span>{{ date.day }}</span>
@@ -27,6 +27,7 @@ interface Props {
 }
 
 const props = defineProps<Props>();
+const emit = defineEmits(['dateSelected']);
 const { selectedYear, setSelectedDate } = useDateState();
 const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
@@ -55,6 +56,7 @@ const calendarDates = computed(() => {
 const selectspecificDate = (date: string) => {
     const d = dayjs(date);
     setSelectedDate(d.year(), d.month(), d.date());
+    emit('dateSelected');
 };
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-<div class="lcars-app-container ">
+<div class="lcars-app-container  ">
 <div class="lcars-row">
 <div class="lcars-column">
 <div class="lcars-element "></div>
@@ -31,12 +31,14 @@
 <div class="lcars-element button lcars-periwinkle-bg">Settings</div>
 <div class="lcars-element button lcars-red-alert-bg" @click="logout">Logout</div>
 </div>
+
 <div id="container" >
 
 <Planner />
 <MonthSelect :open="monthSelectOpen" @close="monthSelectOpen=false" />
 </div>
 </div>
+
 </template>
 
 <script setup lang="ts">
@@ -45,10 +47,10 @@ import dayjs from "dayjs"
 import { CircleArrowLeft, CircleArrowRight } from "lucide-vue-next"
 import { computed, ref, watch } from "vue"
 import Planner from "@/components/Planner/Index.vue"
+import MonthSelect from "@/components/Planner/MonthSelect.vue"
 import { useDateState } from "@/composables/useDateState"
 import { getInitials } from "@/composables/useInitials"
 import type { Calendar } from "@/types"
-import MonthSelect from "@/components/Planner/MonthSelect.vue"
 
 const page = usePage()
 const { selectedYear, selectedMonth, selectedDate, setSelectedDate } =

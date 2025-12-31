@@ -398,6 +398,7 @@ h6 {
 }
 body {
   background-color: #000;
+  height: 100dvh;
 }
 .lcars-app-container {
   

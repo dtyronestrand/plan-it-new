@@ -20,7 +20,7 @@ interface Props {
 	task?: string
 	class?: string
 	disabled?: boolean
-	due?: string
+	due?: string | null
 	completed?: boolean
 	calendar: number
 }
