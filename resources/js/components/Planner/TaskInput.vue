@@ -1,7 +1,7 @@
 <template>
     <input
         :class="props.class"
-        class="text-blue-500 focus:border-indigo-500 border-b border-indigo-500/40 focus:outline-none"
+        class="lcars-text-input"
         v-model="taskName"
         :disabled="props.disabled"
         :calendarId ="props.calendar"

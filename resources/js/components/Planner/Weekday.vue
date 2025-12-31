@@ -28,9 +28,10 @@
         </span>
         <TaskInput
             :disabled="false"
+            :class="'decorated lcars-blue-color'"
             :due="day.format('YYYY-MM-DD')"
             :calendar="(page.props.calendar as Calendar)?.id"
-            class="lcars-row lcars-u-2"
+            class="lcars-row lcars-u-2 "
         />
         <span
             v-for="i in 8 -
@@ -86,6 +87,7 @@
             </span>
             <TaskInput
                 :disabled="false"
+                :class="'decorated lcars-blue-color'"
                 :due="endDay.format('YYYY-MM-DD')"
                 :calendar="(page.props.calendar as any)?.id"
                 class="col-span-2"
