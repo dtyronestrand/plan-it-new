@@ -44,8 +44,8 @@
                 class="lcars-element button lcars-dodger-blue-bg"
                 @click="monthSelectOpen = true"
             >
-                <div class="lcars-text-box full-centered big lcars-dodger-blue-bg">
-                    <span class="text-center text-black">Select Month</span>
+                <div class="lcars-text-box full-centered lcars-dodger-blue-bg">
+                  <CircleArrowLeft class="size-10 text-black" />
                 </div>
             </div>
             <div
@@ -53,12 +53,13 @@
                 @click="lastWeek"
             >
                 <div class="lcars-text-box full-centered lcars-blue-bg">
-                    <CircleArrowLeft class="size-10 text-black" />
+                   <CircleArrowRight class="size-10 text-black" />
                 </div>
             </div>
             <div class="lcars-element button" @click="nextWeek">
                 <div class="lcars-text-box full-centered lcars-golden-tanoi-bg">
-                    <CircleArrowRight class="size-10 text-black" />
+				    <CalendarDays class="text-black size-10"/>
+                   
                 </div>
             </div>
             <div class="lcars-element lcars-vu-4"></div>
@@ -89,7 +90,7 @@ import { getInitials } from '@/composables/useInitials';
 import type { Calendar } from '@/types';
 import { router, usePage } from '@inertiajs/vue3';
 import dayjs from 'dayjs';
-import { CircleArrowLeft, CircleArrowRight } from 'lucide-vue-next';
+import { CircleArrowLeft, CircleArrowRight, CalendarDays} from 'lucide-vue-next';
 import { computed, ref, watch } from 'vue';
 
 const page = usePage();
