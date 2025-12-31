@@ -24,7 +24,7 @@
 <div class="lcars-bar horizontal right-end decorated lcars-periwinkle-bg"></div>
 </div>
 <div id="left-menu" class="lcars-column start-space lcars-u-1" >
-<div class="lcars-element button lcars-dodger-blue-bg"><div class="lcars-text-box full-centered lcars-dodger-blue-bg"><span class="text-center text-black">Select Month</span></div></div>
+<div class="lcars-element button lcars-dodger-blue-bg" @click="monthSelectOpen=true"><div class="lcars-text-box full-centered lcars-dodger-blue-bg"><span class="text-center text-black">Select Month</span></div></div>
 <div class="lcars-element button lcars-blue-bg text-center" @click="lastWeek"><div class="lcars-text-box full-centered lcars-blue-bg"><CircleArrowLeft class="text-black size-10" /></div></div>
 <div class="lcars-element button" @click="nextWeek"><div class="lcars-text-box full-centered lcars-golden-tanoi-bg "><CircleArrowRight class="text-black size-10"/></div></div>
 <div class="lcars-element lcars-vu-4"></div>
@@ -34,7 +34,7 @@
 <div id="container" >
 
 <Planner />
-
+<MonthSelect :open="monthSelectOpen" @close="monthSelectOpen=false" />
 </div>
 </div>
 </template>
@@ -48,6 +48,7 @@ import Planner from "@/components/Planner/Index.vue"
 import { useDateState } from "@/composables/useDateState"
 import { getInitials } from "@/composables/useInitials"
 import type { Calendar } from "@/types"
+import MonthSelect from "@/components/Planner/MonthSelect.vue"
 
 const page = usePage()
 const { selectedYear, selectedMonth, selectedDate, setSelectedDate } =
@@ -60,6 +61,7 @@ const calendarName = ref<string>((page.props.calendar as Calendar).name)
 const selectedCalendarId = ref((page.props.calendar as Calendar).id)
 
 const calendarToEdit = ref<Calendar | null>(null)
+const monthSelectOpen = ref(false)
 
 watch(
 	() => page.props.calendar as Calendar,

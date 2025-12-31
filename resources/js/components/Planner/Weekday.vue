@@ -112,7 +112,7 @@ import { router, useForm, usePage } from "@inertiajs/vue3"
 import dayjs from "dayjs"
 import { computed, ref, watchEffect } from "vue"
 import { useDateState } from "@/composables/useDateState"
-import type { Calendar } from "@/types"
+import type { Calendar, Task} from "@/types"
 import TaskComponent from "./Task.vue"
 import TaskInput from "./TaskInput.vue"
 
@@ -133,8 +133,8 @@ const taskList = computed(() => {
 	return weekView.value.map((day) => ({
 		day: day.format("YYYY-MM-DD"),
 		tasks:
-			((page.props.calendar as Calendar)?.tasks as any[])?.filter(
-				(task) => task.due === day.format("YYYY-MM-DD"),
+			((page.props.calendar as Calendar)?.tasks as Task[])?.filter(
+				(task) => task.due_date === day.format("YYYY-MM-DD"),
 			) || [],
 	}))
 })
