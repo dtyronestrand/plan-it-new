@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { Link, usePage } from "@inertiajs/vue3"
-import AppLogoIcon from "@/components/AppLogoIcon.vue"
-import { home } from "@/routes"
+import AppLogoIcon from '@/components/AppLogoIcon.vue';
+import { home } from '@/routes';
+import { Link, usePage } from '@inertiajs/vue3';
 
-const page = usePage()
-const name = page.props.name
-const quote = page.props.quote
+const page = usePage();
+const name = page.props.name;
+const quote = page.props.quote;
 
 defineProps<{
-	title?: string
-	description?: string
-}>()
+    title?: string;
+    description?: string;
+}>();
 </script>
 
 <template>
@@ -18,7 +18,7 @@ defineProps<{
         class="relative grid h-dvh flex-col items-center justify-center px-8 sm:px-0 lg:max-w-none lg:grid-cols-2 lg:px-0"
     >
         <div
-            class="relative hidden h-full flex-col bg-muted p-10 text-white lg:flex dark:border-r"
+            class="bg-muted relative hidden h-full flex-col p-10 text-white lg:flex dark:border-r"
         >
             <div class="absolute inset-0 bg-zinc-900" />
             <Link
@@ -45,7 +45,7 @@ defineProps<{
                     <h1 class="text-xl font-medium tracking-tight" v-if="title">
                         {{ title }}
                     </h1>
-                    <p class="text-sm text-muted-foreground" v-if="description">
+                    <p class="text-muted-foreground text-sm" v-if="description">
                         {{ description }}
                     </p>
                 </div>

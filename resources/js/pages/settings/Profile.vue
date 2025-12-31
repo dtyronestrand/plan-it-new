@@ -1,34 +1,34 @@
 <script setup lang="ts">
-import { Form, Head, Link, usePage } from "@inertiajs/vue3"
-import ProfileController from "@/actions/App/Http/Controllers/Settings/ProfileController"
-import DeleteUser from "@/components/DeleteUser.vue"
-import HeadingSmall from "@/components/HeadingSmall.vue"
-import InputError from "@/components/InputError.vue"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import AppLayout from "@/layouts/AppLayout.vue"
-import SettingsLayout from "@/layouts/settings/Layout.vue"
-import { edit } from "@/routes/profile"
-import { send } from "@/routes/verification"
-import type { BreadcrumbItem } from "@/types"
+import ProfileController from '@/actions/App/Http/Controllers/Settings/ProfileController';
+import DeleteUser from '@/components/DeleteUser.vue';
+import HeadingSmall from '@/components/HeadingSmall.vue';
+import InputError from '@/components/InputError.vue';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import AppLayout from '@/layouts/AppLayout.vue';
+import SettingsLayout from '@/layouts/settings/Layout.vue';
+import { edit } from '@/routes/profile';
+import { send } from '@/routes/verification';
+import type { BreadcrumbItem } from '@/types';
+import { Form, Head, Link, usePage } from '@inertiajs/vue3';
 
 interface Props {
-	mustVerifyEmail: boolean
-	status?: string
+    mustVerifyEmail: boolean;
+    status?: string;
 }
 
-defineProps<Props>()
+defineProps<Props>();
 
 const breadcrumbItems: BreadcrumbItem[] = [
-	{
-		title: "Profile settings",
-		href: edit().url,
-	},
-]
+    {
+        title: 'Profile settings',
+        href: edit().url,
+    },
+];
 
-const page = usePage()
-const user = page.props.auth.user
+const page = usePage();
+const user = page.props.auth.user;
 </script>
 
 <template>
@@ -77,7 +77,7 @@ const user = page.props.auth.user
                     </div>
 
                     <div v-if="mustVerifyEmail && !user.email_verified_at">
-                        <p class="-mt-4 text-sm text-muted-foreground">
+                        <p class="text-muted-foreground -mt-4 text-sm">
                             Your email address is unverified.
                             <Link
                                 :href="send()"

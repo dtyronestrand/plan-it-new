@@ -1,90 +1,90 @@
 <script setup lang="ts">
-import { type InertiaLinkProps, Link, usePage } from "@inertiajs/vue3"
-import { BookOpen, Folder, LayoutGrid, Menu, Search } from "lucide-vue-next"
-import { computed } from "vue"
-import AppLogo from "@/components/AppLogo.vue"
-import AppLogoIcon from "@/components/AppLogoIcon.vue"
-import Breadcrumbs from "@/components/Breadcrumbs.vue"
-import UserMenuContent from "@/components/UserMenuContent.vue"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
+import AppLogo from '@/components/AppLogo.vue';
+import AppLogoIcon from '@/components/AppLogoIcon.vue';
+import Breadcrumbs from '@/components/Breadcrumbs.vue';
+import UserMenuContent from '@/components/UserMenuContent.vue';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
 import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import {
-	NavigationMenu,
-	NavigationMenuItem,
-	NavigationMenuList,
-	navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu"
+    NavigationMenu,
+    NavigationMenuItem,
+    NavigationMenuList,
+    navigationMenuTriggerStyle,
+} from '@/components/ui/navigation-menu';
 import {
-	Sheet,
-	SheetContent,
-	SheetHeader,
-	SheetTitle,
-	SheetTrigger,
-} from "@/components/ui/sheet"
+    Sheet,
+    SheetContent,
+    SheetHeader,
+    SheetTitle,
+    SheetTrigger,
+} from '@/components/ui/sheet';
 import {
-	Tooltip,
-	TooltipContent,
-	TooltipProvider,
-	TooltipTrigger,
-} from "@/components/ui/tooltip"
-import { getInitials } from "@/composables/useInitials"
-import { toUrl, urlIsActive } from "@/lib/utils"
-import { dashboard } from "@/routes"
-import type { BreadcrumbItem, NavItem } from "@/types"
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from '@/components/ui/tooltip';
+import { getInitials } from '@/composables/useInitials';
+import { toUrl, urlIsActive } from '@/lib/utils';
+import { dashboard } from '@/routes';
+import type { BreadcrumbItem, NavItem } from '@/types';
+import { type InertiaLinkProps, Link, usePage } from '@inertiajs/vue3';
+import { BookOpen, Folder, LayoutGrid, Menu, Search } from 'lucide-vue-next';
+import { computed } from 'vue';
 
 interface Props {
-	breadcrumbs?: BreadcrumbItem[]
+    breadcrumbs?: BreadcrumbItem[];
 }
 
 const props = withDefaults(defineProps<Props>(), {
-	breadcrumbs: () => [],
-})
+    breadcrumbs: () => [],
+});
 
-const page = usePage()
-const auth = computed(() => page.props.auth)
+const page = usePage();
+const auth = computed(() => page.props.auth);
 
 const isCurrentRoute = computed(
-	() => (url: NonNullable<InertiaLinkProps["href"]>) =>
-		urlIsActive(url, page.url),
-)
+    () => (url: NonNullable<InertiaLinkProps['href']>) =>
+        urlIsActive(url, page.url),
+);
 
 const activeItemStyles = computed(
-	() => (url: NonNullable<InertiaLinkProps["href"]>) =>
-		isCurrentRoute.value(toUrl(url))
-			? "text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100"
-			: "",
-)
+    () => (url: NonNullable<InertiaLinkProps['href']>) =>
+        isCurrentRoute.value(toUrl(url))
+            ? 'text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100'
+            : '',
+);
 
 const mainNavItems: NavItem[] = [
-	{
-		title: "Dashboard",
-		href: dashboard(),
-		icon: LayoutGrid,
-	},
-]
+    {
+        title: 'Dashboard',
+        href: dashboard(),
+        icon: LayoutGrid,
+    },
+];
 
 const rightNavItems: NavItem[] = [
-	{
-		title: "Repository",
-		href: "https://github.com/laravel/vue-starter-kit",
-		icon: Folder,
-	},
-	{
-		title: "Documentation",
-		href: "https://laravel.com/docs/starter-kits#vue",
-		icon: BookOpen,
-	},
-]
+    {
+        title: 'Repository',
+        href: 'https://github.com/laravel/vue-starter-kit',
+        icon: Folder,
+    },
+    {
+        title: 'Documentation',
+        href: 'https://laravel.com/docs/starter-kits#vue',
+        icon: BookOpen,
+    },
+];
 </script>
 
 <template>
     <div>
-        <div class="border-b border-sidebar-border/80">
+        <div class="border-sidebar-border/80 border-b">
             <div class="mx-auto flex h-16 items-center px-4 md:max-w-7xl">
                 <!-- Mobile Menu -->
                 <div class="lg:hidden">
@@ -115,7 +115,7 @@ const rightNavItems: NavItem[] = [
                                         v-for="item in mainNavItems"
                                         :key="item.title"
                                         :href="item.href"
-                                        class="flex items-center gap-x-3 rounded-lg px-3 py-2 text-sm font-medium hover:bg-accent"
+                                        class="hover:bg-accent flex items-center gap-x-3 rounded-lg px-3 py-2 text-sm font-medium"
                                         :class="activeItemStyles(item.href)"
                                     >
                                         <component
@@ -242,7 +242,7 @@ const rightNavItems: NavItem[] = [
                             <Button
                                 variant="ghost"
                                 size="icon"
-                                class="relative size-10 w-auto rounded-full p-1 focus-within:ring-2 focus-within:ring-primary"
+                                class="focus-within:ring-primary relative size-10 w-auto rounded-full p-1 focus-within:ring-2"
                             >
                                 <Avatar
                                     class="size-8 overflow-hidden rounded-full"
@@ -270,7 +270,7 @@ const rightNavItems: NavItem[] = [
 
         <div
             v-if="props.breadcrumbs.length > 1"
-            class="flex w-full border-b border-sidebar-border/70"
+            class="border-sidebar-border/70 flex w-full border-b"
         >
             <div
                 class="mx-auto flex h-12 w-full items-center justify-start px-4 text-neutral-500 md:max-w-7xl"

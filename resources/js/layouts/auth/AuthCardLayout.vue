@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import { Link } from "@inertiajs/vue3"
-import AppLogoIcon from "@/components/AppLogoIcon.vue"
+import AppLogoIcon from '@/components/AppLogoIcon.vue';
 import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardHeader,
-	CardTitle,
-} from "@/components/ui/card"
-import { home } from "@/routes"
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from '@/components/ui/card';
+import { home } from '@/routes';
+import { Link } from '@inertiajs/vue3';
 
 defineProps<{
-	title?: string
-	description?: string
-}>()
+    title?: string;
+    description?: string;
+}>();
 </script>
 
 <template>
     <div
-        class="flex min-h-svh flex-col items-center justify-center gap-6 bg-muted p-6 md:p-10"
+        class="bg-muted flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10"
     >
         <div class="flex w-full max-w-md flex-col gap-6">
             <Link

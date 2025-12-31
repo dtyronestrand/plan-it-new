@@ -31,13 +31,15 @@
             :class="'decorated lcars-blue-color'"
             :due="day.format('YYYY-MM-DD')"
             :calendar="(page.props.calendar as Calendar)?.id"
-            class="lcars-row lcars-u-2 "
+            class="lcars-row lcars-u-2"
         />
         <span
             v-for="i in 8 -
-            (Array.isArray(page.props.tasks) ? page.props.tasks.filter(
-                (task) => task.due_date === day.format('YYYY-MM-DD'),
-            )?.length || 0 : 0) -
+            (Array.isArray(page.props.tasks)
+                ? page.props.tasks.filter(
+                      (task) => task.due_date === day.format('YYYY-MM-DD'),
+                  )?.length || 0
+                : 0) -
             1"
             :key="i"
             class="col-span-2"
@@ -110,43 +112,43 @@
 </template>
 
 <script setup lang="ts">
-import { router, useForm, usePage } from "@inertiajs/vue3"
-import dayjs from "dayjs"
-import { computed, ref, watchEffect } from "vue"
-import { useDateState } from "@/composables/useDateState"
-import type { Calendar, Task} from "@/types"
-import TaskComponent from "./Task.vue"
-import TaskInput from "./TaskInput.vue"
+import { useDateState } from '@/composables/useDateState';
+import type { Calendar, Task } from '@/types';
+import { usePage } from '@inertiajs/vue3';
+import dayjs from 'dayjs';
+import { computed, ref } from 'vue';
+import TaskComponent from './Task.vue';
+import TaskInput from './TaskInput.vue';
 
-const page = usePage()
-const { selectedYear, selectedMonth, selectedDate } = useDateState()
+const page = usePage();
+const { selectedYear, selectedMonth, selectedDate } = useDateState();
 
 const weekView = computed(() => {
-	const selectedDay = dayjs(
-		`${selectedYear.value}-${selectedMonth.value + 1}-${selectedDate.value}`,
-	)
-	const startOfWeek = selectedDay.startOf("week").add(1, "day") // Adjust to Monday start
+    const selectedDay = dayjs(
+        `${selectedYear.value}-${selectedMonth.value + 1}-${selectedDate.value}`,
+    );
+    const startOfWeek = selectedDay.startOf('week').add(1, 'day'); // Adjust to Monday start
 
-	return Array.from({ length: 7 }, (_, i) => startOfWeek.add(i, "day"))
-})
-const weekDays = computed(() => weekView.value.slice(0, 5))
-const weekEnd = computed(() => weekView.value.slice(5, 7))
+    return Array.from({ length: 7 }, (_, i) => startOfWeek.add(i, 'day'));
+});
+const weekDays = computed(() => weekView.value.slice(0, 5));
+const weekEnd = computed(() => weekView.value.slice(5, 7));
 const taskList = computed(() => {
-	return weekView.value.map((day) => ({
-		day: day.format("YYYY-MM-DD"),
-		tasks:
-			((page.props.calendar as Calendar)?.tasks as Task[])?.filter(
-				(task) => task.due_date === day.format("YYYY-MM-DD"),
-			) || [],
-	}))
-})
+    return weekView.value.map((day) => ({
+        day: day.format('YYYY-MM-DD'),
+        tasks:
+            ((page.props.calendar as Calendar)?.tasks as Task[])?.filter(
+                (task) => task.due_date === day.format('YYYY-MM-DD'),
+            ) || [],
+    }));
+});
 
-const selectedTask = ref(null)
+const selectedTask = ref(null);
 
 const handleTaskStatus = (task: any) => {
-	// Handle task status change
-	console.log("Task status changed:", task)
-}
+    // Handle task status change
+    console.log('Task status changed:', task);
+};
 </script>
 
 <style scoped>

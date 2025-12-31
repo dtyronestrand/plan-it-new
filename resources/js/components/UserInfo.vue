@@ -1,22 +1,24 @@
 <script setup lang="ts">
-import { computed } from "vue"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { useInitials } from "@/composables/useInitials"
-import type { User } from "@/types"
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { useInitials } from '@/composables/useInitials';
+import type { User } from '@/types';
+import { computed } from 'vue';
 
 interface Props {
-	user: User
-	showEmail?: boolean
+    user: User;
+    showEmail?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-	showEmail: false,
-})
+    showEmail: false,
+});
 
-const { getInitials } = useInitials()
+const { getInitials } = useInitials();
 
 // Compute whether we should show the avatar image
-const showAvatar = computed(() => props.user.avatar && props.user.avatar !== "")
+const showAvatar = computed(
+    () => props.user.avatar && props.user.avatar !== '',
+);
 </script>
 
 <template>
@@ -29,7 +31,7 @@ const showAvatar = computed(() => props.user.avatar && props.user.avatar !== "")
 
     <div class="grid flex-1 text-left text-sm leading-tight">
         <span class="truncate font-medium">{{ user.name }}</span>
-        <span v-if="showEmail" class="truncate text-xs text-muted-foreground">{{
+        <span v-if="showEmail" class="text-muted-foreground truncate text-xs">{{
             user.email
         }}</span>
     </div>

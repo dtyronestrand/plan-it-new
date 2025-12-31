@@ -1,50 +1,50 @@
 <script setup lang="ts">
-import { Form, Head } from "@inertiajs/vue3"
-import { computed, ref } from "vue"
-import InputError from "@/components/InputError.vue"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import InputError from '@/components/InputError.vue';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import {
-	InputOTP,
-	InputOTPGroup,
-	InputOTPSlot,
-} from "@/components/ui/input-otp"
-import AuthLayout from "@/layouts/AuthLayout.vue"
-import { store } from "@/routes/two-factor/login"
+    InputOTP,
+    InputOTPGroup,
+    InputOTPSlot,
+} from '@/components/ui/input-otp';
+import AuthLayout from '@/layouts/AuthLayout.vue';
+import { store } from '@/routes/two-factor/login';
+import { Form, Head } from '@inertiajs/vue3';
+import { computed, ref } from 'vue';
 
 interface AuthConfigContent {
-	title: string
-	description: string
-	toggleText: string
+    title: string;
+    description: string;
+    toggleText: string;
 }
 
 const authConfigContent = computed<AuthConfigContent>(() => {
-	if (showRecoveryInput.value) {
-		return {
-			title: "Recovery Code",
-			description:
-				"Please confirm access to your account by entering one of your emergency recovery codes.",
-			toggleText: "login using an authentication code",
-		}
-	}
+    if (showRecoveryInput.value) {
+        return {
+            title: 'Recovery Code',
+            description:
+                'Please confirm access to your account by entering one of your emergency recovery codes.',
+            toggleText: 'login using an authentication code',
+        };
+    }
 
-	return {
-		title: "Authentication Code",
-		description:
-			"Enter the authentication code provided by your authenticator application.",
-		toggleText: "login using a recovery code",
-	}
-})
+    return {
+        title: 'Authentication Code',
+        description:
+            'Enter the authentication code provided by your authenticator application.',
+        toggleText: 'login using a recovery code',
+    };
+});
 
-const showRecoveryInput = ref<boolean>(false)
+const showRecoveryInput = ref<boolean>(false);
 
 const toggleRecoveryMode = (clearErrors: () => void): void => {
-	showRecoveryInput.value = !showRecoveryInput.value
-	clearErrors()
-	code.value = ""
-}
+    showRecoveryInput.value = !showRecoveryInput.value;
+    clearErrors();
+    code.value = '';
+};
 
-const code = ref<string>("")
+const code = ref<string>('');
 </script>
 
 <template>
@@ -89,7 +89,7 @@ const code = ref<string>("")
                     <Button type="submit" class="w-full" :disabled="processing"
                         >Continue</Button
                     >
-                    <div class="text-center text-sm text-muted-foreground">
+                    <div class="text-muted-foreground text-center text-sm">
                         <span>or you can </span>
                         <button
                             type="button"
@@ -121,7 +121,7 @@ const code = ref<string>("")
                         >Continue</Button
                     >
 
-                    <div class="text-center text-sm text-muted-foreground">
+                    <div class="text-muted-foreground text-center text-sm">
                         <span>or you can </span>
                         <button
                             type="button"
