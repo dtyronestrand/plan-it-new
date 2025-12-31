@@ -44,7 +44,7 @@
                 class="lcars-element button lcars-dodger-blue-bg"
                 @click="monthSelectOpen = true"
             >
-                <div class="lcars-text-box full-centered lcars-dodger-blue-bg">
+                <div class="lcars-text-box full-centered big lcars-dodger-blue-bg">
                     <span class="text-center text-black">Select Month</span>
                 </div>
             </div>
