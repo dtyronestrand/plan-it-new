@@ -42,7 +42,7 @@
         <div id="left-menu" class="lcars-column start-space lcars-u-1">
             <div
                 class="lcars-element button lcars-dodger-blue-bg"
-                @click="monthSelectOpen = true"
+                @click="lastWeek"
             >
                 <div class="lcars-text-box full-centered lcars-dodger-blue-bg">
                   <CircleArrowLeft class="size-10 text-black" />
@@ -50,13 +50,13 @@
             </div>
             <div
                 class="lcars-element button lcars-blue-bg text-center"
-                @click="lastWeek"
+                @click="nextWeek"
             >
                 <div class="lcars-text-box full-centered lcars-blue-bg">
                    <CircleArrowRight class="size-10 text-black" />
                 </div>
             </div>
-            <div class="lcars-element button" @click="nextWeek">
+            <div class="lcars-element button" @click="monthSelectOpen = true">
                 <div class="lcars-text-box full-centered lcars-golden-tanoi-bg">
 				    <CalendarDays class="text-black size-10"/>
                    
