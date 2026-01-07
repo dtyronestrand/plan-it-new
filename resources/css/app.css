@@ -360,30 +360,7 @@ body {
     font-family: 'Arial', monospace;
     color: #fff;
 }
-h1 {
-    font-size: 270%;
-    font-weight: bold;
-}
-h2 {
-    font-size: 240%;
-    font-weight: bold;
-}
-h3 {
-    font-size: 200%;
-    font-weight: bold;
-}
-h4 {
-    font-size: 180%;
-    font-weight: bold;
-}
-h5 {
-    font-size: 160%;
-    font-weight: bold;
-}
-h6 {
-    font-size: 140%;
-    font-weight: bold;
-}
+
 ::-webkit-scrollbar {
     width: 1em;
 }
@@ -4597,4 +4574,18 @@ table.lcars-table.scanning-fast tr:nth-child(12) td {
     100% {
         filter: brightness(1);
     }
+}
+/* Ensure container content doesn't scroll under fixed left-menu */
+.lcars-app-container #container {
+    margin-left: 9.75rem !important;
+    padding-left: 0 !important;
+}
+/* Prevent page-level scrolling to fix bounce effect */
+html, body {
+    overflow: hidden !important;
+    height: 100vh !important;
+}
+
+.lcars-app-container {
+    overflow: hidden !important;
 }

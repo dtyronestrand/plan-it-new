@@ -2,7 +2,7 @@
     <div
         v-for="(day, index) in weekDays"
         :key="day.format('YYYY-MM-DD')"
-        class="lcars-column mx-4"
+        class="lcars-column mx-4 px-2"
     >
         <div
             class="mt-5 mb-5 grid grid-cols-2 grid-rows-1 border-b-4 border-indigo-500"
@@ -14,7 +14,6 @@
             <span v-for="task in getTasksForDate(day.format('YYYY-MM-DD'))" :key="task.id">
                 <TaskComponent
                     :task="task"
-                    :disabled="true"
                     @taskStatus="handleTaskStatus"
                 />
             </span>

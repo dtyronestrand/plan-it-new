@@ -27,8 +27,10 @@ public function store(Request $request)
     return to_route('calendar.show', ['user_id' =>$request->user()->id, 'calendar' => Calendar::findOrFail($validated['calendar_id'])])->with('success', 'Task created successfully.');
 }
 
-    public function update(Request $request, Task $task)
+    public function update(Request $request, $id)
     {
+        $task = Task::findOrFail($id);
+        
         $validated = $request->validate([
             'name' =>'sometimes|required|string|max:255',
             'user_id' => 'sometimes|required|exists:users,id',

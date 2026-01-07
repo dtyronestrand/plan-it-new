@@ -2,7 +2,7 @@
     <div class="lcars-app-container">
         <div class="lcars-row">
             <div class="lcars-column">
-                <div class="lcars-element"></div>
+                <div class="lcars-element lcars-mariner-bg"></div>
             </div>
         </div>
         <div class="lcars-row">
@@ -39,7 +39,7 @@
                 class="lcars-bar horizontal right-end decorated lcars-periwinkle-bg"
             ></div>
         </div>
-        <div id="left-menu" class="lcars-column start-space lcars-u-1">
+        <div id="left-menu" class="lcars-column start-space ">
             <div
                 class="lcars-element button lcars-dodger-blue-bg"
                 @click="lastWeek"
@@ -56,28 +56,35 @@
                    <CircleArrowRight class="size-10 text-black" />
                 </div>
             </div>
-            <div class="lcars-element button" @click="monthSelectOpen = true">
-                <div class="lcars-text-box full-centered lcars-golden-tanoi-bg">
+            <div class="lcars-element lcars-anakiwa-bg button" @click="monthSelectOpen = true">
+                <div class="lcars-text-box full-centered lcars-anakiwa-bg">
 				    <CalendarDays class="text-black size-10"/>
                    
                 </div>
             </div>
-            <div class="lcars-element lcars-vu-4"></div>
-            <div class="lcars-element button lcars-periwinkle-bg">Settings</div>
+            <div class="lcars-element lcars-mariner-bg lcars-vu-4"></div>
+            <div class="lcars-element button lcars-anakiwa-bg">Settings</div>
             <div
                 class="lcars-element button lcars-red-alert-bg"
                 @click="logout"
             >
                 Logout
             </div>
+            <div class="lcars-element lcars-vu-1 lcars-periwinkle-bg"></div>
+            <div class="lcars-element lcars-vu-1 lcars-periwinkle-bg" ></div><div class="lcars-element lcars-vu-1 lcars-dodger-blue-bg"></div>
         </div>
 
-        <div id="container">
+        <div id="container" class="flex items-center justfy-center ">
             <Planner />
             <MonthSelect
                 :open="monthSelectOpen"
                 @close="monthSelectOpen = false"
             />
+        </div>
+        <div id="footer" class="lcars-row">
+        <div class="lcars-elbow left-top lcars-blue-bg "></div>
+        <div class="lcars-bar lcars-dodger-blue-bg horizontal bottom"></div>
+        <div class="lcars-bar right-end rounded horizontal bottom decorated lcars-anakiwa-bg"></div>
         </div>
     </div>
 </template>

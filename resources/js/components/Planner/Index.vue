@@ -1,8 +1,12 @@
 <template>
-    <div class="lcars-row -mt-12 mb-8">
-        <Weekday />
+    <div class="flex flex-row flex-wrap align-center ">
+        <Weekday/> 
+ 
+
+
+    <Someday class="grow" />
     </div>
-    <Someday />
+]
 </template>
 
 <script setup lang="ts">

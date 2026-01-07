@@ -1,46 +1,44 @@
 <template>
-    <div
-        v-if="task"
-        class="bg-base-300 bg-opacity-10 fixed inset-0 z-50 flex items-center justify-center"
-        @click="closeModal"
-    >
-        <div
-            class="bg-base-100 mx-4 w-full max-w-md rounded-lg p-6"
-            @click.stop
-        >
-            <form @submit.prevent="saveForm" class="space-y-4">
-                <input
-                    v-if="taskToUpdate"
-                    v-model="taskToUpdate.name"
-                    type="text"
-                    class="input input-bordered w-full"
-                    placeholder="Task Name"
-                />
-
-                <div v-if="taskToUpdate">
-                    <div class="mb-2 flex items-center justify-between">
-                        <p>Subtasks</p>
-                        <button
-                            @click.prevent="addSubtask"
-                            class="btn btn-sm btn-success"
-                        >
-                            +
-                        </button>
-                    </div>
-                    <div
-                        v-for="(subtask, index) in taskToUpdate.sub_tasks"
+<div v-if="task"
+class="bg-black/50 fixed inset-0 z-50 flex items-center justify-center"
+@click="closeModal">
+<div class="lcars-container w-full max-w-min bg-black " @click.stop>
+<div class="lcars-row lcars-u-5 !m-0">
+<div class="lcars-bar horizontal decorated left-end rounded"></div>
+<div class="lcars-bar horizontal ">
+<h1 class="lcars-title">Edit Task</h1>
+</div>
+</div>
+<form @submit.prevent="saveForm" class="bg-black">
+<div class="flex flex-row pt-4 pl-8 gap-8">
+    <h2 class="text-2xl ">Task Name</h2>
+        <input v-if="taskToUpdate"
+        v-model="taskToUpdate.name"
+        type="text"
+       class="lcars-text-input decorated lcars-anakiwa-color"
+        />
+</div>
+   
+  
+        <div v-if="taskToUpdate">
+        <div class="flex flex-row pt-4 gap-8 pl-8">
+   <h2 class="text-2xl mb-4">SubTasks</h2> 
+    
+    <button class="pl-4" type="button" @click.prevent="addSubtask"><Plus/></button>
+        </div>
+           <div
+                        v-for="(subtask, index) in taskToUpdate.sub_tasks || []"
                         :key="index"
-                        class="group mb-2 flex items-center"
+                        class="group pl-8 mb-2 flex items-center"
                     >
                         <input
                             v-model="subtask.name"
                             type="text"
                             :class="{ 'line-through': subtask.done }"
-                            class="input mr-2 w-full border-none"
+                            class="lcars-input decorated lcars-anakiwa-color mr-2  border-none"
                             placeholder="Subtask Name"
                         />
                         <input
-                            class="mr-2 opacity-0 group-hover:opacity-100"
                             :checked="subtask.done"
                             @change="subtask.done = !subtask.done"
                             type="checkbox"
@@ -49,65 +47,62 @@
                             @click.prevent="removeSubtask(index)"
                             class="btn btn-sm btn-error"
                         >
-                            -
+                        <Trash2 class="text-[#e10] ml-4" /> 
                         </button>
                     </div>
-                </div>
-
-                <div v-if="taskToUpdate">
-                    <p class="mb-2">Notes</p>
+        </div>
+                  <div v-if="taskToUpdate">
+                    <h2 class="text-2xl mb-2 pt-4 pl-8">Notes</h2>
                     <QuillEditor
-                        theme="snow"
+                      theme="snow"
                         v-model:content="taskToUpdate.notes"
                         contentType="html"
-                        class="mb-2"
+                        class="mb-2 "
                     />
                 </div>
+</form>
+</div>
 
-                <div class="flex gap-2">
-                    <button type="submit" class="btn btn-success flex-1">
-                        Save
-                    </button>
-                    <button
-                        @click="closeModal"
-                        type="button"
-                        class="btn btn-error"
-                    >
-                        Cancel
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
+</div>
+
+
 </template>
 
 <script setup lang="ts">
 import { QuillEditor } from '@vueup/vue-quill';
 import { ref } from 'vue';
-
+import type {Task} from '@/types';
+import {Plus, Trash2} from 'lucide-vue-next'
 interface Props {
-    task?: {
-        name: string;
-        notes: string;
-        sub_tasks: { name: string; done: boolean }[];
-        done: boolean;
-        id: number;
-        date: string;
-    } | null;
+    task: Task;
 }
 
 const props = defineProps<Props>();
 const emit = defineEmits(['close', 'updateTask']);
-const taskToUpdate = ref(props.task ? { ...props.task } : null);
+const taskToUpdate = ref<Task>(props.task); 
+;
 
 const addSubtask = () => {
     if (taskToUpdate.value) {
-        taskToUpdate.value.sub_tasks.push({ name: '', done: false });
+        if (!taskToUpdate.value.sub_tasks) {
+            taskToUpdate.value.sub_tasks = [];
+        }
+        const newSubtask: Task = {
+            id: Date.now(), // temporary ID
+            name: '',
+            done: false,
+            notes: null,
+            calendar_id: taskToUpdate.value.calendar_id,
+            due_date: taskToUpdate.value.due_date,
+            sub_tasks: [],
+            attachments: []
+        };
+        taskToUpdate.value.sub_tasks.push(newSubtask);
     }
 };
 
 const removeSubtask = (index: number) => {
-    if (taskToUpdate.value) {
+    if (taskToUpdate.value && taskToUpdate.value.sub_tasks) {
         taskToUpdate.value.sub_tasks.splice(index, 1);
     }
 };
@@ -125,4 +120,13 @@ const closeModal = () => {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+    .lcars-blue-color{
+  border-color:  #01e !important;
+  background-color:black !important;
+
+}
+.lcars-row > * {
+    margin-right: 0 !important;
+}
+</style>
