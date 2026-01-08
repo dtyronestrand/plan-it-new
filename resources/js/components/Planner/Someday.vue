@@ -1,5 +1,5 @@
 <template>
-    <div class="col-span-6">
+  <div class="grid">
         <div class="lcars-row">
             <div
                 class="lcars-bar horizontal left-end decorated lcars-dodger-blue-bg"
@@ -37,7 +37,8 @@
                 />
             </div>
         </div>
-    </div>
+  </div>
+
 </template>
 
 <script setup lang="ts">
@@ -58,9 +59,7 @@ const taskList = computed(() => {
                 notes: task.notes || '',
                 date: task.due_date || '',
                 sub_tasks: Array.isArray(task.sub_tasks)
-                    ? task.sub_tasks.map((st) =>
-                          typeof st === 'string' ? st : st.name || '',
-                      )
+                    ? task.sub_tasks
                     : [],
             })) || []
     );

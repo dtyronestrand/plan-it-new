@@ -3,7 +3,7 @@
 class="bg-black/50 fixed inset-0 z-50 flex items-center justify-center"
 @click="closeModal">
 <div class="lcars-container w-full max-w-min bg-black " @click.stop>
-<div class="lcars-row lcars-u-5 !m-0">
+<div class="lcars-row lcars-u-5 ">
 <div class="lcars-bar horizontal decorated left-end rounded"></div>
 <div class="lcars-bar horizontal ">
 <h1 class="lcars-title">Edit Task</h1>

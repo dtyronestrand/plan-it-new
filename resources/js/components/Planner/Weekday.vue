@@ -1,6 +1,6 @@
 <template>
     <div
-        v-for="(day, index) in weekDays"
+        v-for="day in weekDays"
         :key="day.format('YYYY-MM-DD')"
         class="lcars-column mx-4 px-2"
     >
@@ -87,7 +87,7 @@ import { useDateState } from '@/composables/useDateState';
 import type { Calendar, Task } from '@/types';
 import { usePage } from '@inertiajs/vue3';
 import dayjs from 'dayjs';
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import TaskComponent from './Task.vue';
 import TaskInput from './TaskInput.vue';
 
@@ -123,7 +123,7 @@ const getTasksForDate = (date: string) => {
     });
 };
 
-const selectedTask = ref(null);
+
 
 const handleTaskStatus = (task: any) => {
     console.log('Task status changed:', task);

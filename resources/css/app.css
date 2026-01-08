@@ -380,6 +380,7 @@ body {
     height: calc(100% - 1rem);
     margin: 0.5rem;
     overflow: hidden;
+
 }
 .lcars-app-container #left-menu {
     position: fixed;
@@ -4588,4 +4589,10 @@ html, body {
 
 .lcars-app-container {
     overflow: hidden !important;
+}
+/* Media query for narrow screens - single column layout */
+@media (max-width: 768px) {
+    .grid-cols-3 {
+        grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+    }
 }

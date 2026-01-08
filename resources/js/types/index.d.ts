@@ -34,6 +34,9 @@ export interface User {
     email_verified_at: string | null;
     created_at: string;
     updated_at: string;
+    google_access_token?: string | null;
+    google_refresh_token?: string | null;
+    google_id?: string | null;
 }
 
 export interface Calendar {

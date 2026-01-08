@@ -62,8 +62,11 @@
                    
                 </div>
             </div>
-            <div class="lcars-element lcars-mariner-bg lcars-vu-4"></div>
+            <div class="lcars-element lcars-mariner-bg lcars-vu-2 "></div>
             <div class="lcars-element button lcars-anakiwa-bg">Settings</div>
+            <div class="lcars-element button lcars-dodger-blue-bg lcars-vu-2" @click="connectGoogle">
+                <span v-if="!page.props.auth.user.google_access_token">Connect Google Calendar</span>
+            </div>
             <div
                 class="lcars-element button lcars-red-alert-bg"
                 @click="logout"
@@ -75,6 +78,7 @@
         </div>
 
         <div id="container" class="flex items-center justfy-center ">
+       
             <Planner />
             <MonthSelect
                 :open="monthSelectOpen"
@@ -247,6 +251,10 @@ const month = computed(() => {
 
 const openCreateModal = () => {
     createCalendar.value = true;
+};
+
+const connectGoogle = () => {
+    window.location.href = '/auth/google';
 };
 </script>
 

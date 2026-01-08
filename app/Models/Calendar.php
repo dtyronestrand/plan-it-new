@@ -18,6 +18,10 @@ class Calendar extends Model
         'color',
         'is_default',
         'is_active',
+        'google_calendar_id',
+        'google_sync_token',
+        'google_channel_id',
+        'google_resource_id',
     ];
     
     protected $casts = [

@@ -16,6 +16,7 @@ protected $fillable = [
     'due_date',
     'sub_tasks',
     'attachments',
+    'google_event_id',
 ];
 
 protected $casts = [
