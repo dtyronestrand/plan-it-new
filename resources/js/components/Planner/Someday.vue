@@ -1,5 +1,5 @@
 <template>
-  <div class="grid">
+    <div class="grid">
         <div class="lcars-row">
             <div
                 class="lcars-bar horizontal left-end decorated lcars-dodger-blue-bg"
@@ -37,14 +37,13 @@
                 />
             </div>
         </div>
-  </div>
-
+    </div>
 </template>
 
 <script setup lang="ts">
 import type { Calendar, Task as TypeTask } from '@/types';
-import { router, useForm, usePage } from '@inertiajs/vue3';
-import { computed, ref } from 'vue';
+import { router, usePage } from '@inertiajs/vue3';
+import { computed } from 'vue';
 import Task from './Task.vue';
 import TaskInput from './TaskInput.vue';
 
@@ -58,31 +57,14 @@ const taskList = computed(() => {
                 ...task,
                 notes: task.notes || '',
                 date: task.due_date || '',
-                sub_tasks: Array.isArray(task.sub_tasks)
-                    ? task.sub_tasks
-                    : [],
+                sub_tasks: Array.isArray(task.sub_tasks) ? task.sub_tasks : [],
             })) || []
     );
 });
-const selectedTask = ref<any>(null);
 
-const form = useForm<{
-    name: string;
-    due_date: string;
-    done: boolean;
-    notes: string;
-    subtasks: TypeTask[];
-    user_id: number;
-    calendar_id: number;
-}>({
-    name: '',
-    due_date: '',
-    done: false,
-    notes: '',
-    subtasks: [] as TypeTask[],
-    user_id: page.props.auth.user.id,
-    calendar_id: (page.props.calendar as Calendar).id,
-});
+
+
+
 const handleTaskStatus = (updatedTask: any) => {
     console.log('handleTaskStatus called with:', updatedTask);
     router.put(
@@ -107,38 +89,10 @@ const handleTaskStatus = (updatedTask: any) => {
         },
     );
 };
-const submitForm = () => {
-    if (selectedTask.value) {
-        form.name = selectedTask.value.name;
-        form.due_date = selectedTask.value.due_date || '';
-        form.subtasks = Array.isArray(selectedTask.value.sub_tasks)
-            ? selectedTask.value.sub_tasks
-            : [];
-        form.user_id = page.props.auth.user.id;
-        form.calendar_id = (page.props.calendar as Calendar).id;
 
-        form.put(`/tasks/${selectedTask.value.id}`);
-    }
-};
 
-const openModal = (task: any) => {
-    selectedTask.value = { ...task, subtasks: task.sub_tasks || [] };
-};
-const closeModal = () => {
-    selectedTask.value = null;
-};
 
-const addSubtask = () => {
-    if (selectedTask.value) {
-        selectedTask.value.subtasks.push({ name: '', done: false }); // Add a new subtask with default values
-    }
-};
 
-const removeSubtask = (index: number) => {
-    if (selectedTask.value) {
-        selectedTask.value.subtasks.splice(index, 1);
-    }
-};
 </script>
 
 <style scoped></style>

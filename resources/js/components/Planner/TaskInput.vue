@@ -42,8 +42,6 @@ watch(
     { immediate: true },
 );
 
-
-
 const handleBlur = () => {
     if (taskName.value.trim()) {
         router.post(

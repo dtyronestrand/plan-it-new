@@ -380,7 +380,6 @@ body {
     height: calc(100% - 1rem);
     margin: 0.5rem;
     overflow: hidden;
-
 }
 .lcars-app-container #left-menu {
     position: fixed;
@@ -4582,7 +4581,8 @@ table.lcars-table.scanning-fast tr:nth-child(12) td {
     padding-left: 0 !important;
 }
 /* Prevent page-level scrolling to fix bounce effect */
-html, body {
+html,
+body {
     overflow: hidden !important;
     height: 100vh !important;
 }

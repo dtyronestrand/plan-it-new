@@ -39,13 +39,13 @@
                 class="lcars-bar horizontal right-end decorated lcars-periwinkle-bg"
             ></div>
         </div>
-        <div id="left-menu" class="lcars-column start-space ">
+        <div id="left-menu" class="lcars-column start-space">
             <div
                 class="lcars-element button lcars-dodger-blue-bg"
                 @click="lastWeek"
             >
                 <div class="lcars-text-box full-centered lcars-dodger-blue-bg">
-                  <CircleArrowLeft class="size-10 text-black" />
+                    <CircleArrowLeft class="size-10 text-black" />
                 </div>
             </div>
             <div
@@ -53,19 +53,26 @@
                 @click="nextWeek"
             >
                 <div class="lcars-text-box full-centered lcars-blue-bg">
-                   <CircleArrowRight class="size-10 text-black" />
+                    <CircleArrowRight class="size-10 text-black" />
                 </div>
             </div>
-            <div class="lcars-element lcars-anakiwa-bg button" @click="monthSelectOpen = true">
+            <div
+                class="lcars-element lcars-anakiwa-bg button"
+                @click="monthSelectOpen = true"
+            >
                 <div class="lcars-text-box full-centered lcars-anakiwa-bg">
-				    <CalendarDays class="text-black size-10"/>
-                   
+                    <CalendarDays class="size-10 text-black" />
                 </div>
             </div>
-            <div class="lcars-element lcars-mariner-bg lcars-vu-2 "></div>
-            <div class="lcars-element button lcars-anakiwa-bg">Settings</div>
-            <div class="lcars-element button lcars-dodger-blue-bg lcars-vu-2" @click="connectGoogle">
-                <span v-if="!page.props.auth.user.google_access_token">Connect Google Calendar</span>
+            <div class="lcars-element lcars-mariner-bg lcars-vu-2"></div>
+            <div class="lcars-element button lcars-anakiwa-bg" @click="openSettingsModal(page.props.calendar as Calendar)">Settings</div>
+            <div
+                class="lcars-element button lcars-dodger-blue-bg lcars-vu-2"
+                @click="connectGoogle"
+            >
+                <span v-if="!page.props.auth.user.google_access_token"
+                    >Connect Google Calendar</span
+                >
             </div>
             <div
                 class="lcars-element button lcars-red-alert-bg"
@@ -74,37 +81,52 @@
                 Logout
             </div>
             <div class="lcars-element lcars-vu-1 lcars-periwinkle-bg"></div>
-            <div class="lcars-element lcars-vu-1 lcars-periwinkle-bg" ></div><div class="lcars-element lcars-vu-1 lcars-dodger-blue-bg"></div>
+            <div class="lcars-element lcars-vu-1 lcars-periwinkle-bg"></div>
+            <div class="lcars-element lcars-vu-1 lcars-dodger-blue-bg"></div>
         </div>
 
-        <div id="container" class="flex items-center justfy-center ">
-       
+        <div id="container" class="justfy-center flex items-center">
             <Planner />
             <MonthSelect
                 :open="monthSelectOpen"
                 @close="monthSelectOpen = false"
             />
+            <CalendarSettingsModal
+                v-if="calendarToEdit"
+                :calendar="calendarToEdit"
+                :settingsOpen="!!calendarToEdit"
+                @close="calendarToEdit = null"
+                @updateCalendar="updateCalendar"
+                @deleteCalendar="deleteCalendar"
+            />
         </div>
         <div id="footer" class="lcars-row">
-        <div class="lcars-elbow left-top lcars-blue-bg "></div>
-        <div class="lcars-bar lcars-dodger-blue-bg horizontal bottom"></div>
-        <div class="lcars-bar right-end rounded horizontal bottom decorated lcars-anakiwa-bg"></div>
+            <div class="lcars-elbow left-top lcars-blue-bg"></div>
+            <div class="lcars-bar lcars-dodger-blue-bg horizontal bottom"></div>
+            <div
+                class="lcars-bar right-end horizontal bottom decorated lcars-anakiwa-bg rounded"
+            ></div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
 import Planner from '@/components/Planner/Index.vue';
+import CalendarSettingsModal from '@/components/Planner/CalendarSettingsModal.vue';
 import MonthSelect from '@/components/Planner/MonthSelect.vue';
 import { useDateState } from '@/composables/useDateState';
 import { getInitials } from '@/composables/useInitials';
-import type { Calendar } from '@/types';
+import type { AppPageProps, Calendar } from '@/types';
 import { router, usePage } from '@inertiajs/vue3';
 import dayjs from 'dayjs';
-import { CircleArrowLeft, CircleArrowRight, CalendarDays} from 'lucide-vue-next';
+import {
+    CalendarDays,
+    CircleArrowLeft,
+    CircleArrowRight,
+} from 'lucide-vue-next';
 import { computed, ref, watch } from 'vue';
 
-const page = usePage();
+const page = usePage<AppPageProps & Calendar>();
 const { selectedYear, selectedMonth, selectedDate, setSelectedDate } =
     useDateState();
 

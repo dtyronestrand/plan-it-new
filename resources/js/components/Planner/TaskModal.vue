@@ -1,41 +1,51 @@
 <template>
-<div v-if="task"
-class="bg-black/50 fixed inset-0 z-50 flex items-center justify-center"
-@click="closeModal">
-<div class="lcars-container w-full max-w-min bg-black " @click.stop>
-<div class="lcars-row lcars-u-5 ">
-<div class="lcars-bar horizontal decorated left-end rounded"></div>
-<div class="lcars-bar horizontal ">
-<h1 class="lcars-title">Edit Task</h1>
-</div>
-</div>
-<form @submit.prevent="saveForm" class="bg-black">
-<div class="flex flex-row pt-4 pl-8 gap-8">
-    <h2 class="text-2xl ">Task Name</h2>
-        <input v-if="taskToUpdate"
-        v-model="taskToUpdate.name"
-        type="text"
-       class="lcars-text-input decorated lcars-anakiwa-color"
-        />
-</div>
-   
-  
-        <div v-if="taskToUpdate">
-        <div class="flex flex-row pt-4 gap-8 pl-8">
-   <h2 class="text-2xl mb-4">SubTasks</h2> 
-    
-    <button class="pl-4" type="button" @click.prevent="addSubtask"><Plus/></button>
-        </div>
-           <div
+    <div
+        v-if="task"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+        @click="closeModal"
+    >
+        <div class="lcars-container w-full max-w-min bg-black" @click.stop>
+            <div class="lcars-row lcars-u-5">
+                <div
+                    class="lcars-bar horizontal decorated left-end rounded"
+                ></div>
+                <div class="lcars-bar horizontal">
+                    <h1 class="lcars-title">Edit Task</h1>
+                </div>
+            </div>
+            <form @submit.prevent="saveForm" class="bg-black">
+                <div class="flex flex-row gap-8 pt-4 pl-8">
+                    <h2 class="text-2xl">Task Name</h2>
+                    <input
+                        v-if="taskToUpdate"
+                        v-model="taskToUpdate.name"
+                        type="text"
+                        class="lcars-text-input decorated lcars-anakiwa-color"
+                    />
+                </div>
+
+                <div v-if="taskToUpdate">
+                    <div class="flex flex-row gap-8 pt-4 pl-8">
+                        <h2 class="mb-4 text-2xl">SubTasks</h2>
+
+                        <button
+                            class="pl-4"
+                            type="button"
+                            @click.prevent="addSubtask"
+                        >
+                            <Plus />
+                        </button>
+                    </div>
+                    <div
                         v-for="(subtask, index) in taskToUpdate.sub_tasks || []"
                         :key="index"
-                        class="group pl-8 mb-2 flex items-center"
+                        class="group mb-2 flex items-center pl-8"
                     >
                         <input
                             v-model="subtask.name"
                             type="text"
                             :class="{ 'line-through': subtask.done }"
-                            class="lcars-input decorated lcars-anakiwa-color mr-2  border-none"
+                            class="lcars-input decorated lcars-anakiwa-color mr-2 border-none"
                             placeholder="Subtask Name"
                         />
                         <input
@@ -47,41 +57,36 @@ class="bg-black/50 fixed inset-0 z-50 flex items-center justify-center"
                             @click.prevent="removeSubtask(index)"
                             class="btn btn-sm btn-error"
                         >
-                        <Trash2 class="text-[#e10] ml-4" /> 
+                            <Trash2 class="ml-4 text-[#e10]" />
                         </button>
                     </div>
-        </div>
-                  <div v-if="taskToUpdate">
-                    <h2 class="text-2xl mb-2 pt-4 pl-8">Notes</h2>
+                </div>
+                <div v-if="taskToUpdate">
+                    <h2 class="mb-2 pt-4 pl-8 text-2xl">Notes</h2>
                     <QuillEditor
-                      theme="snow"
+                        theme="snow"
                         v-model:content="taskToUpdate.notes"
                         contentType="html"
-                        class="mb-2 "
+                        class="mb-2"
                     />
                 </div>
-</form>
-</div>
-
-</div>
-
-
+            </form>
+        </div>
+    </div>
 </template>
 
 <script setup lang="ts">
+import type { Task } from '@/types';
 import { QuillEditor } from '@vueup/vue-quill';
+import { Plus, Trash2 } from 'lucide-vue-next';
 import { ref } from 'vue';
-import type {Task} from '@/types';
-import {Plus, Trash2} from 'lucide-vue-next'
 interface Props {
     task: Task;
 }
 
 const props = defineProps<Props>();
 const emit = defineEmits(['close', 'updateTask']);
-const taskToUpdate = ref<Task>(props.task); 
-;
-
+const taskToUpdate = ref<Task>(props.task);
 const addSubtask = () => {
     if (taskToUpdate.value) {
         if (!taskToUpdate.value.sub_tasks) {
@@ -95,7 +100,7 @@ const addSubtask = () => {
             calendar_id: taskToUpdate.value.calendar_id,
             due_date: taskToUpdate.value.due_date,
             sub_tasks: [],
-            attachments: []
+            attachments: [],
         };
         taskToUpdate.value.sub_tasks.push(newSubtask);
     }
@@ -121,10 +126,9 @@ const closeModal = () => {
 </script>
 
 <style scoped>
-    .lcars-blue-color{
-  border-color:  #01e !important;
-  background-color:black !important;
-
+.lcars-blue-color {
+    border-color: #01e !important;
+    background-color: black !important;
 }
 .lcars-row > * {
     margin-right: 0 !important;

@@ -1,12 +1,10 @@
 <template>
-    <div class="flex flex-row flex-wrap align-center ">
-        <Weekday/> 
- 
+    <div class="align-center flex flex-row flex-wrap">
+        <Weekday />
 
-
-    <Someday class="grow" />
+        <Someday class="grow" />
     </div>
-]
+    ]
 </template>
 
 <script setup lang="ts">

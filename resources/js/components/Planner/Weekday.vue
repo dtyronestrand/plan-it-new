@@ -11,11 +11,11 @@
             <p class="justify-self-end">{{ day.format('D') }}</p>
         </div>
         <span v-if="allTasks.length > 0">
-            <span v-for="task in getTasksForDate(day.format('YYYY-MM-DD'))" :key="task.id">
-                <TaskComponent
-                    :task="task"
-                    @taskStatus="handleTaskStatus"
-                />
+            <span
+                v-for="task in getTasksForDate(day.format('YYYY-MM-DD'))"
+                :key="task.id"
+            >
+                <TaskComponent :task="task" @taskStatus="handleTaskStatus" />
             </span>
         </span>
         <TaskInput
@@ -26,7 +26,9 @@
             class="lcars-row lcars-u-2"
         />
         <span
-            v-for="i in 8 - getTasksForDate(day.format('YYYY-MM-DD')).length - 1"
+            v-for="i in 8 -
+            getTasksForDate(day.format('YYYY-MM-DD')).length -
+            1"
             :key="i"
             class="col-span-2"
         >
@@ -53,7 +55,10 @@
                 <p class="justify-self-end">{{ endDay.format('D') }}</p>
             </div>
             <span v-if="allTasks.length > 0" class="col-span-2">
-                <span v-for="task in getTasksForDate(endDay.format('YYYY-MM-DD'))" :key="task.id">
+                <span
+                    v-for="task in getTasksForDate(endDay.format('YYYY-MM-DD'))"
+                    :key="task.id"
+                >
                     <TaskComponent
                         :task="task"
                         @taskStatus="handleTaskStatus"
@@ -68,7 +73,9 @@
                 class="col-span-2"
             />
             <span
-                v-for="i in 3 - getTasksForDate(endDay.format('YYYY-MM-DD')).length - 1"
+                v-for="i in 3 -
+                getTasksForDate(endDay.format('YYYY-MM-DD')).length -
+                1"
                 :key="i"
                 class="col-span-2"
             >
@@ -122,8 +129,6 @@ const getTasksForDate = (date: string) => {
         return taskDate === date;
     });
 };
-
-
 
 const handleTaskStatus = (task: any) => {
     console.log('Task status changed:', task);
